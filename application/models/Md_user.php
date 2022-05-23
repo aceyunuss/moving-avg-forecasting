@@ -24,7 +24,7 @@ class Md_user extends CI_Model
   public function get($id = "")
   {
     if (!empty($id)) {
-      $this->db->where("user_id", $id);
+      $this->db->where("usr_id", $id);
     }
     return $this->db->get("user");
   }
@@ -32,13 +32,13 @@ class Md_user extends CI_Model
 
   public function delete($id)
   {
-    $this->db->where("user_id", $id)->delete("user");
+    $this->db->where("usr_id", $id)->delete("user");
     return $this->db->affected_rows();
   }
 
   public function update($id, $data)
   {
-    $this->db->where("user_id", $id)->update("user", $data);
+    $this->db->where("usr_id", $id)->update("user", $data);
     return $this->db->affected_rows();
   }
 

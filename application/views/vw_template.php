@@ -13,19 +13,8 @@
   <link rel="stylesheet" href="<?= base_url('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') ?>" />
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
   <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.png') ?>" />
-</head>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">
 
-<body>
-
-  <div class="container-scroller">
-
-    <?php include('vw_menu.php') ?>
-
-    <?php include('vw_header.php') ?>
-
-    <?php include('vw_content.php') ?>
-
-  </div>
 
   <script src="<?= base_url('assets/vendors/js/vendor.bundle.base.js') ?>"></script>
   <script src="<?= base_url('assets/vendors/chart.js/Chart.min.js') ?>"></script>
@@ -39,7 +28,28 @@
   <script src="<?= base_url('assets/js/off-canvas.js') ?>"></script>
   <script src="<?= base_url('assets/js/hoverable-collapse.js') ?>"></script>
   <script src="<?= base_url('assets/js/misc.js') ?>"></script>
-  <script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
+  <script src="<?= base_url('assets/js/jquery.min.js') ?> "></script>
+  <script src="<?= base_url('assets/js/datatables.js') ?> "></script>
+
+</head>
+
+
+<body>
+  <div class="container-scroller">
+
+    <?php include('vw_menu.php') ?>
+
+    <?php include('vw_header.php') ?>
+
+    <?php include('vw_content.php') ?>
+
+  </div>
 </body>
 
 </html>
+
+<script>
+  $(document).ready(function() {
+    $('.datatable').DataTable();
+  });
+</script>

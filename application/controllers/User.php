@@ -6,109 +6,109 @@ class User extends Core_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->model(['M_user']);
+    $this->load->model(['Md_user']);
 
-    if ($this->session->userdata('status') != 'granted') {
+    if ($this->session->userdata('access') != 'verf') {
       $this->session->sess_destroy();
-      redirect('auth');
+      redirect('home');
     }
   }
 
 
   public function index()
   {
-    $data['userlist'] = $this->M_user->get()->result_array();
-    $this->template("user/v_list", "Data User", $data);
+    $data['users'] = $this->Md_user->get()->result_array();
+    $this->vw("user/vw_daftar", "Data User", $data);
   }
 
 
-  public function add()
+  public function input()
   {
-    $data['role'] = ['Murid', 'Pembimbing', 'Manajer Proyek'];
-    $this->template("user/v_add", "Tambah Data User", $data);
+    $data['role'] = ['Admin Marketing', 'General Manager', 'Direktur'];
+    $this->vw("user/vw_input", "Tambah Data User", $data);
   }
 
 
-  public function go_add()
+  public function sb_input()
   {
-    $post = $this->input->post();
+    $inp = $this->input->post();
 
-    $dt = [
-      'fullname'      => $post['name'],
-      'role'          => $post['role'],
-      'gender'        => $post['gender'],
-      'phone'         => $post['phone'],
-      'email'         => $post['email'],
-      'birthdate'     => $post['birthdate'],
-      'password'      => sha1($post['password']),
+    $user = [
+      'name'      => $inp['name'],
+      'username'  => $inp['username'],
+      'gender'    => $inp['gender'],
+      'phone'     => $inp['telp'],
+      'nik'       => $inp['nik'],
+      'role'      => $inp['role'],
+      'password'  => sha1($inp['password']),
     ];
 
     $this->db->trans_begin();
 
-    $this->M_user->insert($dt);
+    $this->Md_user->insert($user);
 
     if ($this->db->trans_status() !== FALSE) {
       $this->db->trans_commit();
-      echo "<script>alert('Berhasil menambah user'); location.href='" . site_url('user') . "';</script>";
+      echo "<script>alert('Berhasil'); location.href='" . site_url('user') . "';</script>";
     } else {
       $this->db->trans_rollback();
-      echo "<script>alert('Berhasil menambah user'); location.href='" . site_url('user/add') . "';</script>";
+      echo "<script>alert('Gagal'); location.href='" . site_url('user/input') . "';</script>";
     }
   }
 
 
-  public function delete($id)
+  public function hapus($id)
   {
 
-    $this->M_user->delete($id);
+    $this->Md_user->delete($id);
 
     if ($this->db->trans_status() !== FALSE) {
       $this->db->trans_commit();
-      $st = "Berhasil";
+      $status = "Berhasil";
     } else {
       $this->db->trans_rollback();
-      $st = "Gagal";
+      $status = "Gagal";
     }
 
-    echo "<script>alert('$st menghapus user'); location.href='" . site_url('user') . "';</script>";
+    echo "<script>alert('$status menghapus user'); location.href='" . site_url('user') . "';</script>";
   }
 
 
-  public function edit($id)
+  public function ubah($id)
   {
-    $data['usr'] = $this->M_user->get($id)->row_array();
-    $data['role'] = ['Murid', 'Pembimbing', 'Manajer Proyek'];
-    $this->template("user/v_edit", "Ubah Data User", $data);
+    $data['usr'] = $this->Md_user->get($id)->row_array();
+    $data['role'] = ['Admin Marketing', 'General Manager', 'Direktur'];
+    $this->vw("user/vw_ubah", "Ubah Data User", $data);
   }
 
 
-  public function go_edit()
+  public function sb_ubah()
   {
-    $post = $this->input->post();
+    $inp = $this->input->post();
 
-    $dt = [
-      'fullname'      => $post['name'],
-      'role'          => $post['role'],
-      'gender'        => $post['gender'],
-      'phone'         => $post['phone'],
-      'email'         => $post['email'],
-      'birthdate'     => $post['birthdate'],
+    $user = [
+      'name'      => $inp['name'],
+      'username'  => $inp['username'],
+      'gender'    => $inp['gender'],
+      'phone'     => $inp['telp'],
+      'nik'       => $inp['nik'],
+      'role'      => $inp['role'],
     ];
 
-    if (!empty($post['password'])) {
-      $dt['password'] = sha1($post['password']);
+    if (!empty($inp['password'])) {
+      $user['password'] = sha1($inp['password']);
     }
 
     $this->db->trans_begin();
 
-    $this->M_user->update($post['user_id'], $dt);
+    $this->Md_user->update($inp['usr_id'], $user);
 
     if ($this->db->trans_status() !== FALSE) {
       $this->db->trans_commit();
       echo "<script>alert('Berhasil mengubah user'); location.href='" . site_url('user') . "';</script>";
     } else {
       $this->db->trans_rollback();
-      echo "<script>alert('Gagal mengubah user'); location.href='" . site_url('user/edit/' . $post['user_id']) . "';</script>";
+      echo "<script>alert('Gagal mengubah user'); location.href='" . site_url('user/edit/' . $inp['usr_id']) . "';</script>";
     }
   }
 }
