@@ -38,13 +38,13 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= site_url('penjualan') ?>">
         <i class="mdi mdi-cart menu-icon"></i>
-        <span class="menu-title">Penjualan Barang</span>
+        <span class="menu-title">Input Penjualan</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?= site_url('laporan') ?>">
+      <a class="nav-link" href="<?= site_url('datapenjualan') ?>">
         <i class="mdi mdi-table-large menu-icon"></i>
-        <span class="menu-title">Laporan Penjualan</span>
+        <span class="menu-title">Data Penjualan</span>
       </a>
     </li>
     <li class="nav-item">
