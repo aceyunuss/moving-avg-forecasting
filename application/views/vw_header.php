@@ -25,13 +25,13 @@
       <ul class="navbar-nav navbar-nav-right ml-lg-auto">
         <li class="nav-item nav-profile dropdown border-0">
           <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
-            <img class="nav-profile-img mr-2" alt="" src="<?= base_url('assets/images/faces/face1.jpg') ?>" />
-            <span class="profile-name">Henry Klein</span>
+            <img class="nav-profile-img mr-2" alt="" src="<?= base_url('assets/images/faces-clipart/pic-1.png') ?>" />
+            <span class="profile-name"><?= $this->session->userdata('name') ?></span>
           </a>
           <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="<?= site_url('user/ubah/' . $this->session->userdata('usr_id')) ?>">
               <i class="mdi mdi-cached mr-2 text-success"></i> Profile </a>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="<?= site_url('auth/logout') ?>">
               <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
           </div>
         </li>

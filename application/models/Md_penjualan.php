@@ -51,10 +51,13 @@ class Md_penjualan extends CI_Model
     return $this->db->affected_rows();
   }
 
-  public function getItem($id = "")
+  public function getItem($id = "", $itm = "")
   {
     if (!empty($id)) {
       $this->db->where("sell_id", $id);
+    }
+    if (!empty($itm)) {
+      $this->db->where("item_id", $itm);
     }
     return $this->db->get("sell_item");
   }

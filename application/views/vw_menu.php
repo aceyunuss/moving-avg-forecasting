@@ -7,13 +7,13 @@
     <li class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
-          <img src="<?= base_url('assets/images/faces/face1.jpg') ?>" alt="profile" />
+          <img src="<?= base_url('assets/images/faces-clipart/pic-1.png') ?>" alt="profile" />
           <span class="login-status online"></span>
           <!--change to offline or busy as needed-->
         </div>
         <div class="nav-profile-text d-flex flex-column pr-3">
-          <span class="font-weight-medium mb-2">Henry Klein</span>
-          <span class="font-weight-normal">Role</span>
+          <span class="font-weight-medium mb-2"><?= $this->session->userdata('name') ?></span>
+          <span class="font-weight-normal"><?= $this->session->userdata('role') ?></span>
         </div>
       </a>
     </li>

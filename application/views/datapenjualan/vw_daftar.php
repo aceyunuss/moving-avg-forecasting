@@ -1,9 +1,7 @@
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">User</h4>
+    <h4 class="card-title">Data Penjualan</h4>
     <hr>
-    <a href="<?= site_url('user/input') ?>" type="button" class="btn btn-sm btn-primary"> Input User </a>
-    <br><br>
     <div class="table-responsive">
       <table class="table" id="usrtbl">
         <thead>
