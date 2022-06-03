@@ -31,6 +31,7 @@ class Penjualan extends Core_Controller
       'date'          => $inp['tanggal'],
       'customer'      => $inp['cust'],
       'po'            => $inp['po'],
+      'description'   => $inp['desc'],
       'creator_id'    => $this->session->userdata('usr_id'),
       'creator_name'  => $this->session->userdata('name'),
     ];

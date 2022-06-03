@@ -22,6 +22,12 @@
             <input type="text" class="form-control" name="po" required>
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Deskripsi</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="desc" required>
+          </div>
+        </div>
 
         <hr>
         <br>

@@ -1,6 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-    <a class="sidebar-brand brand-logo" href="<?= site_url() ?>"><img src="<?= base_url('assets/images/logo.svg') ?>" alt="logo" /></a>
+    <!-- <a class="sidebar-brand brand-logo" href="<?= site_url() ?>"><img src="<?= base_url('assets/images/logo.svg') ?>" alt="logo" /></a> -->
+    <h3>&nbsp;&nbsp;PT. Cahaya Laguna</h3>
     <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="<?= site_url() ?>"><img src="<?= base_url('assets/images/logo-mini.svg') ?>" alt="logo" /></a>
   </div>
   <ul class="nav">
@@ -38,7 +39,7 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= site_url('penjualan') ?>">
         <i class="mdi mdi-cart menu-icon"></i>
-        <span class="menu-title">Input Penjualan</span>
+        <span class="menu-title">Input Laporan Penjualan</span>
       </a>
     </li>
     <li class="nav-item">
