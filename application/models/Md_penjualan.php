@@ -59,6 +59,12 @@ class Md_penjualan extends CI_Model
     if (!empty($itm)) {
       $this->db->where("item_id", $itm);
     }
+    $this->db->join("uom", "size=uom_id", "left");
     return $this->db->get("sell_item");
+  }
+
+  public function getUom()
+  {
+    return $this->db->get("uom");
   }
 }

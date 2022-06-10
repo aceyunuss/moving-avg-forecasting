@@ -42,7 +42,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-row='0'>
+            <!-- <tr data-row='0'>
               <td>
               </td>
               <td>
@@ -54,7 +54,7 @@
               <td>
                 <input required class="form-control item_total0" type="number" min="1" name="item_total[0]">
               </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
         <br>
@@ -74,6 +74,14 @@
 <script>
   $(document).ready(function() {
 
+    var typ = '<?= $uom ?>';
+    var te = JSON.parse(typ)
+    var listtype = "";
+
+    for (var i in te) {
+      listtype += "<option value='" + te[i].uom_id + "'>" + te[i].uom_val + "</option>";
+    }
+
     $('.add').click(function(e) {
 
       e.preventDefault(e);
@@ -90,7 +98,9 @@
                   <input required class="form-control item_name' + rw + '" type="text" name="item_name[' + rw + ']">\
                 </td>\
                 <td>\
-                  <input required class="form-control item_size' + rw + '" type="text" name="item_size[' + rw + ']">\
+                  <select required class="form-control item_size' + rw + '" name="item_size[' + rw + ']">\
+                  ' + listtype + '\
+                  </select>\
                 </td>\
                 <td>\
                   <input required class="form-control item_total' + rw + '" type="number" min="1" name="item_total[' + rw + ']">\

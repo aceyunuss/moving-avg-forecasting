@@ -17,7 +17,8 @@ class Penjualan extends Core_Controller
 
   public function index()
   {
-    $data = [];
+    $uom = $this->Md_penjualan->getUom()->result_array();
+    $data['uom'] = json_encode($uom);
     $this->vw("penjualan/vw_input", "Input Penjualan", $data);
   }
 
@@ -61,6 +62,4 @@ class Penjualan extends Core_Controller
       echo "<script>alert('Gagal'); location.href='" . site_url('penjualan/input') . "';</script>";
     }
   }
-
-
 }

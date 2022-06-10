@@ -31,12 +31,6 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?= site_url('barang') ?>">
-        <i class="mdi mdi mdi-archive menu-icon"></i>
-        <span class="menu-title">Data Barang</span>
-      </a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" href="<?= site_url('penjualan') ?>">
         <i class="mdi mdi-cart menu-icon"></i>
         <span class="menu-title">Input Laporan Penjualan</span>

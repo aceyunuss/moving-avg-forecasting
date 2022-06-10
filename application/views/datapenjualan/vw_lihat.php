@@ -38,7 +38,7 @@
               <tr>
                 <td class="text-center"><?= ++$k ?></td>
                 <td class="text-center"><?= $v['name'] ?></td>
-                <td class="text-center"><?= $v['size'] ?></td>
+                <td class="text-center"><?= $v['uom_val'] ?></td>
                 <td class="text-center"><?= $v['total'] ?></td>
               </tr>
             <?php } ?>
