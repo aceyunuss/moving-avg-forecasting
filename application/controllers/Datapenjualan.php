@@ -17,7 +17,7 @@ class Datapenjualan extends Core_Controller
 
   public function index()
   {
-    $data['sell'] = $this->Md_penjualan->get()->result_array();
+    $data['sell'] = $this->Md_penjualan->getMonth()->result_array();
     $this->vw("datapenjualan/vw_daftar", "Data Penjualan", $data);
   }
 
@@ -26,5 +26,14 @@ class Datapenjualan extends Core_Controller
     $data['sell'] = $this->Md_penjualan->get($id)->row_array();
     $data['itm'] = $this->Md_penjualan->getItem($id)->result_array();
     $this->vw("datapenjualan/vw_lihat", "Lihat Data Penjualan", $data);
+  }
+
+  public function lihat_bulan($id)
+  {
+    $this->db->where("month(date)", $id);
+    $month = date('F', mktime(0, 0, 0, $id, 1, date('Y')));
+    $data['sell'] = $this->Md_penjualan->get()->result_array();
+
+    $this->vw("datapenjualan/vw_daftar_det", "Data Penjualan Bulan $month", $data);
   }
 }

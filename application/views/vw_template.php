@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
   <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.png') ?>" />
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">
+  <link href="<?= base_url('assets/css/select2.min.css') ?>" rel="stylesheet">
 
 
   <script src="<?= base_url('assets/vendors/js/vendor.bundle.base.js') ?>"></script>
@@ -30,6 +31,7 @@
   <script src="<?= base_url('assets/js/misc.js') ?>"></script>
   <script src="<?= base_url('assets/js/jquery.min.js') ?> "></script>
   <script src="<?= base_url('assets/js/datatables.js') ?> "></script>
+  <script src="<?= base_url('assets/js/select2.min.js') ?> "></script>
 
 </head>
 
@@ -51,5 +53,9 @@
 <script>
   $(document).ready(function() {
     $('.datatable').DataTable();
+
+    $(".selects2").select2({
+      theme: "classic"
+    });
   });
 </script>

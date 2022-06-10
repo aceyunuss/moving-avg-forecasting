@@ -45,7 +45,7 @@
     <li class="nav-item">
       <a class="nav-link" href="<?= site_url('peramalan') ?>">
         <i class="mdi mdi-chart-bar menu-icon"></i>
-        <span class="menu-title">Peramalan Penjualan</span>
+        <span class="menu-title">Prediksi Penjualan</span>
       </a>
     </li>
   </ul>

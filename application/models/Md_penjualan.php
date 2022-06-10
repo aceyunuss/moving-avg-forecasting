@@ -73,4 +73,12 @@ class Md_penjualan extends CI_Model
   {
     return ['Pipa Baja Hitam', 'Pipa Baja Gavanis'];
   }
+
+
+  public function getMonth()
+  {
+    $this->db->select("monthname(date) as mth, count(sell_id) as total, month(date) as m");
+    $this->db->group_by("MONTH(date)");
+    return $this->db->get("sell");
+  }
 }
