@@ -82,6 +82,16 @@
       listtype += "<option value='" + te[i].uom_id + "'>" + te[i].uom_val + "</option>";
     }
 
+
+    var itm = '<?= $itm ?>';
+    var item = JSON.parse(itm)
+    var listitm = "";
+
+    for (var i in item) {
+      listitm += "<option value='" + item[i] + "'>" + item[i] + "</option>";
+    }
+
+
     $('.add').click(function(e) {
 
       e.preventDefault(e);
@@ -95,7 +105,9 @@
                   <center>\
                 </td>\
                 <td>\
-                  <input required class="form-control item_name' + rw + '" type="text" name="item_name[' + rw + ']">\
+                   <select required class="form-control item_name' + rw + '" name="item_name[' + rw + ']">\
+                  ' + listitm + '\
+                  </select>\
                 </td>\
                 <td>\
                   <select required class="form-control item_size' + rw + '" name="item_size[' + rw + ']">\

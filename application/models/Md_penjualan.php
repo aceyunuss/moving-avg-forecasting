@@ -67,4 +67,10 @@ class Md_penjualan extends CI_Model
   {
     return $this->db->get("uom");
   }
+
+
+  public function item()
+  {
+    return ['Pipa Baja Hitam', 'Pipa Baja Gavanis'];
+  }
 }

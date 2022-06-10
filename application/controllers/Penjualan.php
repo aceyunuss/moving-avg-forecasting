@@ -19,6 +19,8 @@ class Penjualan extends Core_Controller
   {
     $uom = $this->Md_penjualan->getUom()->result_array();
     $data['uom'] = json_encode($uom);
+    $itm = $this->Md_penjualan->item();
+    $data['itm'] = json_encode($itm);
     $this->vw("penjualan/vw_input", "Input Penjualan", $data);
   }
 
