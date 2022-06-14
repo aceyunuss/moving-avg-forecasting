@@ -71,14 +71,22 @@ class Md_penjualan extends CI_Model
 
   public function item()
   {
-    return ['Pipa Baja Hitam', 'Pipa Baja Gavanis'];
+    return ['Pipa Baja Hitam', 'Pipa Baja Galvanis'];
   }
 
 
-  public function getMonth()
+  public function getMonth($itm)
   {
-    $this->db->select("monthname(date) as mth, count(sell_id) as total, month(date) as m");
-    $this->db->group_by("MONTH(date)");
-    return $this->db->get("sell");
+    return $this->db->query("SELECT
+                      monthname( date ) AS mth,
+                      sum( total ) AS total,
+                      MONTH ( date ) AS m 
+                    FROM
+                      sell_item i
+                      LEFT JOIN sell s ON i.sell_id = s.sell_id 
+                      where name = '$itm'
+                    GROUP BY
+                      MONTH (
+                      date)");
   }
 }

@@ -17,7 +17,19 @@ class Datapenjualan extends Core_Controller
 
   public function index()
   {
-    $data['sell'] = $this->Md_penjualan->getMonth()->result_array();
+    $data['itm'] = "h";
+    $data['sell'] = $this->Md_penjualan->getMonth("Pipa Baja Hitam")->result_array();
+    $this->vw("datapenjualan/vw_daftar", "Data Penjualan", $data);
+  }
+
+  public function alias($id)
+  {
+    $itm = [
+      'h' => "Pipa Baja Hitam",
+      'g' => "Pipa Baja Galvanis",
+    ];
+    $data['sell'] = $this->Md_penjualan->getMonth($itm[$id])->result_array();
+    $data['itm'] = $id;
     $this->vw("datapenjualan/vw_daftar", "Data Penjualan", $data);
   }
 

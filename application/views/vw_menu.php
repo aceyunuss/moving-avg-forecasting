@@ -1,3 +1,4 @@
+<?php $rl = $this->session->userdata('role') ?>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
     <!-- <a class="sidebar-brand brand-logo" href="<?= site_url() ?>"><img src="<?= base_url('assets/images/logo.svg') ?>" alt="logo" /></a> -->
@@ -24,29 +25,33 @@
         <span class="menu-title">Home</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?= site_url('user') ?>">
-        <i class="mdi mdi-contacts menu-icon"></i>
-        <span class="menu-title">Data User</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?= site_url('penjualan') ?>">
-        <i class="mdi mdi-cart menu-icon"></i>
-        <span class="menu-title">Input Laporan Penjualan</span>
-      </a>
-    </li>
+    <?php if ($rl == "Admin Marketing") { ?>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('user') ?>">
+          <i class="mdi mdi-contacts menu-icon"></i>
+          <span class="menu-title">Data User</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('penjualan') ?>">
+          <i class="mdi mdi-cart menu-icon"></i>
+          <span class="menu-title">Input Laporan Penjualan</span>
+        </a>
+      </li>
+    <?php } ?>
     <li class="nav-item">
       <a class="nav-link" href="<?= site_url('datapenjualan') ?>">
         <i class="mdi mdi-table-large menu-icon"></i>
         <span class="menu-title">Data Penjualan</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?= site_url('peramalan') ?>">
-        <i class="mdi mdi-chart-bar menu-icon"></i>
-        <span class="menu-title">Prediksi Penjualan</span>
-      </a>
-    </li>
+    <?php if ($rl != "Admin Marketing") { ?>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('peramalan') ?>">
+          <i class="mdi mdi-chart-bar menu-icon"></i>
+          <span class="menu-title">Prediksi Penjualan</span>
+        </a>
+      </li>
+    <?php } ?>
   </ul>
 </nav>
