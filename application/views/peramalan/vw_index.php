@@ -27,7 +27,7 @@
           <div class="col-md-3">
             <div class="form-group">
               <label>N Periode</label>
-              <select class="form-control js-example-basic-multiple" name="np[]" multiple="multiple" style="width: 100%;" id="member">
+              <select class="form-control " name="np" id="member">
                 <option value="all">Semua bulan</option>
                 <?php foreach ((array)$mth as $k => $v) { ?>
                   <option value="<?= $k ?>"><?= $v ?></option>
@@ -36,9 +36,10 @@
             </div>
           </div>
           <div class="col-md-3">
+            <p></p>
+
             <div class="form-group">
-              <label>Periode to Average</label>
-              <input class="form-control" id="pa" type="number" min="1">
+              <a href="#" class="btn btn-sm btn-success">Hitung</a>
             </div>
           </div>
         </div>
