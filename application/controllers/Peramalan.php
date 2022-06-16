@@ -28,4 +28,49 @@ class Peramalan extends Core_Controller
 
     $this->vw("peramalan/vw_index", "Prediksi Penjualan", $data);
   }
+
+
+  public function calculate()
+  {
+    $itm = $this->input->post('item');
+    $siz = $this->input->post('size');
+    $mot = $this->input->post('period');
+
+
+    if ($mot != "all") {
+      if ($siz != "all") {
+        $this->db->where('size', $siz);
+      }
+      $dat = $this->db
+        ->select("sum(total) as tot, month(date) as dt")
+        ->where(['i.name' => $itm])
+        ->where_in('month(date)', [10, 11, 12])
+        ->join("sell s", "s.sell_id=i.sell_id", "left")
+        ->group_by("month(date)")
+        ->get('sell_item i')
+        ->result_array();
+
+      foreach ($dat as $key => $value) {
+
+        $dt[$value['dt']]['avg'] = $value['tot'];
+      }
+
+      for ($i = 1; $i <= $mot; $i++) {
+
+        $dt = array_slice($dt, -3, 3, true);
+        $x = $to = 0;
+        foreach ($dt as $k => $v) {
+          $x = $v['avg'] + $x;
+        }
+        $avg = $x / 3;
+        $dt[$i + $k]['avg'] = $avg;
+        $dt[$i + $k]['mse'] = $avg - 2;
+        $dt[$i + $k]['mad'] = $avg - 3;
+        $dt[$i + $k]['mape'] = $avg - 4;
+        $dt[$i + $k]['mot'] =  date('F', mktime(0, 0, 0, ($i + $k - 13), 10));
+      }
+
+      echo json_encode(end($dt));
+    }
+  }
 }
