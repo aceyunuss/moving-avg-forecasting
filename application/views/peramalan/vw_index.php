@@ -98,7 +98,7 @@
         },
         success: function(data, textStatus, jQxhr) {
           cale = JSON.parse(data)
-          $('#itm').text(item + " " + $('#size option:selected').text() + " " + cale.mot + " 2022")
+          $('#itm').text(item + " " + $('#size option:selected').text() + " " + $('#period option:selected').text()  + " 2022")
           $('#avg').text(cale.avg)
           $('#mad').html("MAD <br><br>" + cale.mad)
           $('#mse').html("MSE <br><br>" + cale.mse)

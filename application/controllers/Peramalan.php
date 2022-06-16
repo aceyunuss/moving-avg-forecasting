@@ -50,6 +50,14 @@ class Peramalan extends Core_Controller
         ->get('sell_item i')
         ->result_array();
 
+      $act = $this->db
+        ->select("sum(total) as tot")
+        ->where(['i.name' => $itm, 'month(date)'=> $mot])
+        ->join("sell s", "s.sell_id=i.sell_id", "left")
+        ->get('sell_item i')
+        ->row()->tot;
+
+
       foreach ($dat as $key => $value) {
 
         $dt[$value['dt']]['avg'] = $value['tot'];
@@ -62,12 +70,16 @@ class Peramalan extends Core_Controller
         foreach ($dt as $k => $v) {
           $x = $v['avg'] + $x;
         }
-        $avg = $x / 3;
+        $avg = round(($x / 3), 2);
+        $mad = abs($avg - $act);
+        $mse = round(($mad*$mad), 2);
+        $mape = round(($mad/$act*100), 2) . " %";
+
         $dt[$i + $k]['avg'] = $avg;
-        $dt[$i + $k]['mse'] = $avg - 2;
-        $dt[$i + $k]['mad'] = $avg - 3;
-        $dt[$i + $k]['mape'] = $avg - 4;
-        $dt[$i + $k]['mot'] =  date('F', mktime(0, 0, 0, ($i + $k - 13), 10));
+        $dt[$i + $k]['mad'] = $mad;
+        $dt[$i + $k]['mse'] = $mse ;
+        $dt[$i + $k]['mape'] = $mape;
+        $dt[$i + $k]['mot'] =  $k-11;
       }
 
       echo json_encode(end($dt));
