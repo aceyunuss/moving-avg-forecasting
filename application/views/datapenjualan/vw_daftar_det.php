@@ -1,4 +1,3 @@
-
 <div class="card">
   <div class="card-body">
     <h4 class="card-title">Data Penjualan</h4>
@@ -24,6 +23,8 @@
               <td class="text-center">
                 <a href="<?= site_url('datapenjualan/lihat/' . $value['sell_id']) ?>" class="btn btn-sm
                  btn-success">Lihat</a>
+                <a onclick="return confirm('Yakin ingin menghapus?');" href="<?= site_url('datapenjualan/hapus/' . $value['sell_id']) ?>" class="btn btn-sm
+                 btn-danger">hapus</a>
               </td>
             </tr>
           <?php } ?>

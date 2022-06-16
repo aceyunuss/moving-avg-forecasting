@@ -26,6 +26,6 @@ class Peramalan extends Core_Controller
     $data['mth'] = $mth;
     $data['item'] = $this->Md_penjualan->item();
 
-    $this->vw("peramalan/vw_index", "Peramalan Penjualan", $data);
+    $this->vw("peramalan/vw_index", "Prediksi Penjualan", $data);
   }
 }

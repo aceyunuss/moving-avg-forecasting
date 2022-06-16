@@ -40,6 +40,22 @@ class Datapenjualan extends Core_Controller
     $this->vw("datapenjualan/vw_lihat", "Lihat Data Penjualan", $data);
   }
 
+  public function hapus($id)
+  {
+    $this->db->trans_begin();
+
+    $this->Md_penjualan->delete($id);
+
+    if ($this->db->trans_status() !== FALSE) {
+      $this->db->trans_commit();
+      $msg = "Berhasil";
+    } else {
+      $this->db->trans_rollback();
+      $msg = "Gagal";
+    }
+    echo "<script>alert('$msg'); location.href='" . site_url('datapenjualan') . "';</script>";
+  }
+
   public function lihat_bulan($id)
   {
     $this->db->where("month(date)", $id);

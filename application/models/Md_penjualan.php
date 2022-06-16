@@ -27,6 +27,7 @@ class Md_penjualan extends CI_Model
   public function delete($id)
   {
     $this->db->where("sell_id", $id)->delete("sell");
+    $this->db->where("sell_id", $id)->delete("sell_item");
     return $this->db->affected_rows();
   }
 
