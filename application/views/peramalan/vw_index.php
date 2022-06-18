@@ -123,9 +123,9 @@
                       <th> Total </th>\
                       <th>' + tt + '</th>\
                       <th> </th>\
-                      <th>' + madt + '</th>\
-                      <th>' + mset + '</th>\
-                      <th>' + mapet + ' %</th>\
+                      <th>' + madt.toFixed(2) + '</th>\
+                      <th>' + mset.toFixed(2) + '</th>\
+                      <th>' + mapet.toFixed(2) + ' %</th>\
                     </tr>\
                     <tr class="text-center">\
                       <th> Average </th>\
