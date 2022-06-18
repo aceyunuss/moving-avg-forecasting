@@ -34,55 +34,43 @@ class Peramalan extends Core_Controller
   {
     $itm = $this->input->post('item');
     $siz = $this->input->post('size');
-    $mot = $this->input->post('period');
+    $per = $this->input->post('period');
 
 
-    if ($mot != "all") {
-      if ($siz != "all") {
-        $this->db->where('size', $siz);
-      }
-      $dat = $this->db
-        ->select("sum(total) as tot, month(date) as dt")
-        ->where(['i.name' => $itm])
-        ->where_in('month(date)', [10, 11, 12])
-        ->join("sell s", "s.sell_id=i.sell_id", "left")
-        ->group_by("month(date)")
-        ->get('sell_item i')
-        ->result_array();
-
-      $act = $this->db
-        ->select("sum(total) as tot")
-        ->where(['i.name' => $itm, 'month(date)'=> $mot])
-        ->join("sell s", "s.sell_id=i.sell_id", "left")
-        ->get('sell_item i')
-        ->row()->tot;
-
-
-      foreach ($dat as $key => $value) {
-
-        $dt[$value['dt']]['avg'] = $value['tot'];
-      }
-
-      for ($i = 1; $i <= $mot; $i++) {
-
-        $dt = array_slice($dt, -3, 3, true);
-        $x = $to = 0;
-        foreach ($dt as $k => $v) {
-          $x = $v['avg'] + $x;
-        }
-        $avg = round(($x / 3), 2);
-        $mad = abs($avg - $act);
-        $mse = round(($mad*$mad), 2);
-        $mape = round(($mad/$act*100), 2) . " %";
-
-        $dt[$i + $k]['avg'] = $avg;
-        $dt[$i + $k]['mad'] = $mad;
-        $dt[$i + $k]['mse'] = $mse ;
-        $dt[$i + $k]['mape'] = $mape;
-        $dt[$i + $k]['mot'] =  $k-11;
-      }
-
-      echo json_encode(end($dt));
+    if ($siz != "all") {
+      $this->db->where('size', $siz);
     }
+    $dat = $this->db
+      ->select("sum(total) as tot, month(date) as dt, monthname(date) as mo")
+      ->where(['i.name' => $itm])
+      ->join("sell s", "s.sell_id=i.sell_id", "left")
+      ->group_by("month(date)")
+      ->get('sell_item i')
+      ->result_array();
+
+    foreach ($dat as $key => $value) {
+
+      $dat[$key]['act'] = (int)$value['tot'];
+      if ($key > ($per - 1)) {
+        $dt = array_slice($dat, ($key - $per), $per, true);
+
+        $avg = array_sum(array_column($dt, "tot"));
+        $mad = abs($avg - $value['tot']);
+        $mse = round(($mad * $mad), 2);
+        $mape = round(($mad / $value['tot'] * 100 / 3), 2);
+
+        $dat[$key]['avg'] = $avg;
+        $dat[$key]['mad'] = $mad;
+        $dat[$key]['mse'] = $mse;
+        $dat[$key]['mape'] = $mape;
+      } else {
+        $dat[$key]['avg'] = "-";
+        $dat[$key]['mad'] = "-";
+        $dat[$key]['mse'] = "-";
+        $dat[$key]['mape'] = "-";
+      }
+    }
+
+    echo json_encode($dat);
   }
 }

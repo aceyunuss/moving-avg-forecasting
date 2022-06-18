@@ -26,12 +26,7 @@
         <div class="col-md-3">
           <div class="form-group">
             <label>Periode</label>
-            <select class="form-control " name="np" id="period">
-              <option value="all">Semua bulan</option>
-              <?php foreach ((array)$mth as $k => $v) { ?>
-                <option value="<?= $k ?>"><?= $v ?></option>
-              <?php } ?>
-            </select>
+            <input type="number" min="1" class="form-control " name="np" id="period">
           </div>
         </div>
         <div class="col-md-3">
@@ -47,30 +42,20 @@
       <br>
       <center>
         <h3></h3>
-        <div class="table-responsive col-sm-6 ">
-          <table class="table table-bordered">
-            <thead class="text-center">
-              <tr>
-                <th colspan="3">
-                  <h3>FORECAST</h3>
-                </th>
-              </tr>
-              <tr>
-                <th colspan="3">
-                  <h4 id="itm">-</h4>
-                </th>
-              </tr>
-              <tr>
-                <th colspan="3">
-                  <h1 id="avg">-</h1>
-                </th>
-              </tr>
-              <tr>
-                <th id="mad">MAD<br><br>-</th>
-                <th id="mse">MSE<br><br>-</th>
-                <th id="mape">MAPE<br><br>-</th>
+        <div class="table-responsive col-sm-12 ">
+          <table class="table table-bordered item_table">
+            <thead>
+              <tr class="text-center">
+                <th>Bulan</th>
+                <th id="brg">Barang</th>
+                <th>Forecast MA</th>
+                <th>MAD</th>
+                <th>MSE</th>
+                <th>MAPE</th>
               </tr>
             </thead>
+            <tbody id="tbody">
+            </tbody>
           </table>
         </div>
       </center>
@@ -98,11 +83,60 @@
         },
         success: function(data, textStatus, jQxhr) {
           cale = JSON.parse(data)
-          $('#itm').text(item + " " + $('#size option:selected').text() + " " + $('#period option:selected').text()  + " 2022")
-          $('#avg').text(cale.avg)
-          $('#mad').html("MAD <br><br>" + cale.mad)
-          $('#mse').html("MSE <br><br>" + cale.mse)
-          $('#mape').html("MAPE <br><br>" + cale.mape)
+          $('.item_table tbody').html('')
+          let brg = $("#item option:selected").text();
+          let ukr = $("#size option:selected").text();
+          $("#brg").text(brg + " " + ukr)
+          let tbody = "";
+          let d = 1
+          let tt = 0;
+          let madt = 0;
+          let mset = 0;
+          let mapet = 0;
+
+          for (let x in cale) {
+            itm = cale[x];
+            tbody += '<tr class="text-center">\
+                        <td>' + itm.mo + '</td>\
+                        <td>' + itm.tot + '</td>\
+                        <td>' + itm.avg + '</td>\
+                        <td>' + itm.mad + '</td>\
+                        <td>' + itm.mse + '</td>\
+                        <td>' + itm.mape + ' %</td>\
+                      </tr>'
+
+            tt += itm.act;
+            madt += (itm.mad == "-") ? 0 : itm.mad;
+            mset += (itm.mse == "-") ? 0 : itm.mse;
+            mapet += (itm.mape == "-") ? 0 : itm.mape;
+            d = x;
+          }
+          let co = parseInt(d) + 1  - parseInt(period)
+          
+
+          let tv = tt / (co);
+          let madv = madt / (co);
+          let msev = mset / (co);
+          let mapev = mapet / (co);
+
+          tbody += '<tr class="text-center">\
+                      <th> Total </th>\
+                      <th>' + tt + '</th>\
+                      <th> </th>\
+                      <th>' + madt + '</th>\
+                      <th>' + mset + '</th>\
+                      <th>' + mapet + ' %</th>\
+                    </tr>\
+                    <tr class="text-center">\
+                      <th> Average </th>\
+                      <th>' + tv.toFixed(2) + '</th>\
+                      <th></th>\
+                      <th>' + madv.toFixed(2) + '</th>\
+                      <th>' + msev.toFixed(2) + '</th>\
+                      <th>' + mapev.toFixed(2) + ' %</th>\
+                    </tr>'
+          $('.item_table tbody').append(tbody)
+
         },
       });
     })
