@@ -12,7 +12,13 @@ class Auth extends Core_Controller
   public function index()
   {
     if ($this->session->userdata('access') == 'verf') {
-      $this->vw('vw_home', "Home");
+      $data = [
+        'h' => $this->db->select("sum(total) as t")->where('name', 'Pipa Baja Hitam')->get("sell_item")->row()->t,
+        'g' => $this->db->select("sum(total) as t")->where('name', 'Pipa Baja Galvanis')->get("sell_item")->row()->t,
+        'u' => $this->db->select("count(usr_id) as t")->get("user")->row()->t,
+      ];
+
+      $this->vw('vw_home', "Home", $data);
     } else {
       $this->session->sess_destroy();
       $data['title'] = "Forecasting";

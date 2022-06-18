@@ -6,8 +6,7 @@
           <div class="card-body px-3 py-4">
             <div class="d-flex justify-content-between align-items-start">
               <div class="color-card">
-                <h2 class="text-white"> 123
-                </h2>
+                <h2 class="text-white"><?= $h ?></h2>
               </div>
               <i class="card-icon-indicator mdi mdi-basket bg-inverse-icon-warning"></i>
             </div>
@@ -20,7 +19,7 @@
           <div class="card-body px-3 py-4">
             <div class="d-flex justify-content-between align-items-start">
               <div class="color-card">
-                <h2 class="text-white"> 123 </h2>
+                <h2 class="text-white"><?= $g ?></h2>
               </div>
               <i class="card-icon-indicator mdi mdi-cube-outline bg-inverse-icon-danger"></i>
             </div>
@@ -33,7 +32,7 @@
           <div class="card-body px-3 py-4">
             <div class="d-flex justify-content-between align-items-start">
               <div class="color-card">
-                <h2 class="text-white">2368</h2>
+                <h2 class="text-white"><?= $u ?></h2>
               </div>
               <i class="card-icon-indicator mdi mdi-account-circle bg-inverse-icon-success"></i>
             </div>
@@ -73,20 +72,13 @@
     Highcharts.chart('containerss', {
 
         title: {
-          text: 'Solar Employment Growth by Sector, 2010-2016'
+          text: 'Penjualan'
         }
-
-        ,
-
-        subtitle: {
-          text: 'Source: thesolarfoundation.com'
-        }
-
         ,
 
         yAxis: {
           title: {
-            text: 'Number of Employees'
+            text: 'Jumlah'
           }
         }
 
