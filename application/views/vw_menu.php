@@ -45,7 +45,7 @@
         <span class="menu-title">Data Penjualan</span>
       </a>
     </li>
-    <?php if ($rl != "Admin Marketing") { ?>
+    <?php if ($rl == "Admin Marketing") { ?>
       <li class="nav-item">
         <a class="nav-link" href="<?= site_url('peramalan') ?>">
           <i class="mdi mdi-chart-bar menu-icon"></i>
