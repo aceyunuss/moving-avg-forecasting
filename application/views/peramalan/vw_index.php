@@ -26,7 +26,7 @@
         <div class="col-md-3">
           <div class="form-group">
             <label>Periode</label>
-            <input type="number" min="1" class="form-control " name="np" id="period">
+            <input type="number" min="1" max="11" class="form-control " name="np" id="period">
           </div>
         </div>
         <div class="col-md-3">
@@ -69,34 +69,39 @@
 <script>
   $(document).ready(function() {
     $('.calcc').click(function() {
+
       let item = $('#item').val();
       let size = $('#size').val();
       let period = $('#period').val();
 
-      $.ajax({
-        type: "POST",
-        url: '<?= site_url('peramalan/calculate') ?>',
-        data: {
-          item: item,
-          size: size,
-          period: period,
-        },
-        success: function(data, textStatus, jQxhr) {
-          cale = JSON.parse(data)
-          $('.item_table tbody').html('')
-          let brg = $("#item option:selected").text();
-          let ukr = $("#size option:selected").text();
-          $("#brg").text(brg + " " + ukr)
-          let tbody = "";
-          let d = 1
-          let tt = 0;
-          let madt = 0;
-          let mset = 0;
-          let mapet = 0;
+      if (period > 11) {
+        alert("Maksimal periode 11")
+      } else {
 
-          for (let x in cale) {
-            itm = cale[x];
-            tbody += '<tr class="text-center">\
+        $.ajax({
+          type: "POST",
+          url: '<?= site_url('peramalan/calculate') ?>',
+          data: {
+            item: item,
+            size: size,
+            period: period,
+          },
+          success: function(data, textStatus, jQxhr) {
+            cale = JSON.parse(data)
+            $('.item_table tbody').html('')
+            let brg = $("#item option:selected").text();
+            let ukr = $("#size option:selected").text();
+            $("#brg").text(brg + " " + ukr)
+            let tbody = "";
+            let d = 1
+            let tt = 0;
+            let madt = 0;
+            let mset = 0;
+            let mapet = 0;
+
+            for (let x in cale) {
+              itm = cale[x];
+              tbody += '<tr class="text-center">\
                         <td>' + itm.mo + '</td>\
                         <td>' + itm.tot + '</td>\
                         <td>' + itm.avg + '</td>\
@@ -105,21 +110,21 @@
                         <td>' + itm.mape + ' %</td>\
                       </tr>'
 
-            tt += itm.act;
-            madt += (itm.mad == "-") ? 0 : itm.mad;
-            mset += (itm.mse == "-") ? 0 : itm.mse;
-            mapet += (itm.mape == "-") ? 0 : itm.mape;
-            d = x;
-          }
-          let co = parseInt(d) + 1  - parseInt(period)
-          
+              tt += itm.act;
+              madt += (itm.mad == "-") ? 0 : itm.mad;
+              mset += (itm.mse == "-") ? 0 : itm.mse;
+              mapet += (itm.mape == "-") ? 0 : itm.mape;
+              d = x;
+            }
+            let co = parseInt(d) + 1 - parseInt(period)
 
-          let tv = tt / (co);
-          let madv = madt / (co);
-          let msev = mset / (co);
-          let mapev = mapet / (co);
 
-          tbody += '<tr class="text-center">\
+            let tv = tt / (co);
+            let madv = madt / (co);
+            let msev = mset / (co);
+            let mapev = mapet / (co);
+
+            tbody += '<tr class="text-center">\
                       <th> Total </th>\
                       <th>' + tt + '</th>\
                       <th> </th>\
@@ -135,10 +140,11 @@
                       <th>' + msev.toFixed(2) + '</th>\
                       <th>' + mapev.toFixed(2) + ' %</th>\
                     </tr>'
-          $('.item_table tbody').append(tbody)
+            $('.item_table tbody').append(tbody)
 
-        },
-      });
+          },
+        });
+      }
     })
 
   })

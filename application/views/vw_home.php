@@ -51,7 +51,8 @@
             <div class="flot-chart-wrapper">
               <div id="flotChart" class="flot-chart">
                 <figure class="highcharts-figure">
-                  <div id="containerss"></div>
+
+                  <div id="container"></div>
                 </figure>
               </div>
             </div>
@@ -61,107 +62,85 @@
       </div>
     </div>
   </div>
-  <!-- <script src="<?= base_url('assets/js/dashboard.js') ?>"></script> -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/series-label.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-  <script src="http://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
+
   <script>
-    Highcharts.chart('containerss', {
+    Highcharts.chart('container', {
+      title: {
+        text: 'Penjualan Pipa Baja'
+      },
+      xAxis: {
+        type: 'datetime'
+      },
 
+      yAxis: {
         title: {
-          text: 'Penjualan'
+          text: 'Jumlah'
         }
-        ,
+      },
+      series: [{
+        name: 'Pipa Baja Galvanis',
+        data: [{
+          x: Date.UTC(2021, 1),
+          y: 239
+        }, {
+          x: Date.UTC(2021, 2),
+          y: 556
+        }, {
+          x: Date.UTC(2021, 3),
+          y: 124,
+        }, {
+          x: Date.UTC(2021, 4),
+          y: 423
+        }, {
+          x: Date.UTC(2021, 5),
+          y: 112
+        }, {
+          x: Date.UTC(2021, 6),
+          y: 493
+        }, {
+          x: Date.UTC(2021, 7),
+          y: 239
+        }, {
+          x: Date.UTC(2021, 8),
+          y: 324
+        }, {
+          x: Date.UTC(2021, 9),
+          y: 493
+        }]
+      }, {
+        name: 'Pipa Baja Hitam',
+        data: [{
+          x: Date.UTC(2021, 1),
+          y: 123
+        }, {
+          x: Date.UTC(2021, 2),
+          y: 421
+        }, {
+          x: Date.UTC(2021, 3),
+          y: 322,
+        }, {
+          x: Date.UTC(2021, 4),
+          y: 431
+        }, {
+          x: Date.UTC(2021, 5),
+          y: 536
+        }, {
+          x: Date.UTC(2021, 6),
+          y: 222
+        }, {
+          x: Date.UTC(2021, 7),
+          y: 456
+        }, {
+          x: Date.UTC(2021, 8),
+          y: 782
+        }, {
+          x: Date.UTC(2021, 9),
+          y: 234
+        }]
+      }]
 
-        yAxis: {
-          title: {
-            text: 'Jumlah'
-          }
-        }
-
-        ,
-
-        xAxis: {
-          accessibility: {
-            rangeDescription: 'Range: 2010 to 2017'
-          }
-        }
-
-        ,
-
-        legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'middle'
-        }
-
-        ,
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false
-            }
-
-            ,
-            pointStart: 2010
-          }
-        }
-
-        ,
-
-        series: [{
-            name: 'Installation',
-            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 14000]
-          }
-
-          , {
-            name: 'Manufacturing',
-            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-          }
-
-          , {
-            name: 'Sales & Distribution',
-            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-          }
-
-          , {
-            name: 'Project Development',
-            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-          }
-
-          , {
-            name: 'Other',
-            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-          }
-
-        ],
-
-        responsive: {
-          rules: [{
-              condition: {
-                maxWidth: 500
-              }
-
-              ,
-              chartOptions: {
-                legend: {
-                  layout: 'horizontal',
-                  align: 'center',
-                  verticalAlign: 'bottom'
-                }
-              }
-            }
-
-          ]
-        }
-
-      }
-
-    );
+    });
   </script>
 
   <style>
