@@ -54,10 +54,10 @@ class Peramalan extends Core_Controller
       if ($key > ($per - 1)) {
         $dt = array_slice($dat, ($key - $per), $per, true);
 
-        $avg = array_sum(array_column($dt, "tot"));
+        $avg = (array_sum(array_column($dt, "tot"))) / $per;
         $mad = abs($avg - $value['tot']);
         $mse = round(($mad * $mad), 2);
-        $mape = round(($mad / $value['tot'] * 100 / 3), 2);
+        $mape = round(($mad / $value['tot'] * 100), 2);
 
         $dat[$key]['avg'] = $avg;
         $dat[$key]['mad'] = $mad;
