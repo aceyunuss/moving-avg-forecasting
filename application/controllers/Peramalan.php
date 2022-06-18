@@ -56,13 +56,13 @@ class Peramalan extends Core_Controller
 
         $avg = (array_sum(array_column($dt, "tot"))) / $per;
         $mad = abs($avg - $value['tot']);
-        $mse = round(($mad * $mad), 2);
-        $mape = round(($mad / $value['tot'] * 100), 2);
+        $mse = ($mad * $mad);
+        $mape = ($mad / $value['tot'] * 100);
 
         $dat[$key]['avg'] = round($avg, 2);
-        $dat[$key]['mad'] = $mad;
-        $dat[$key]['mse'] = $mse;
-        $dat[$key]['mape'] = $mape;
+        $dat[$key]['mad'] = round($mad, 2);
+        $dat[$key]['mse'] = round($mse, 2);
+        $dat[$key]['mape'] = round($mape, 2);
       } else {
         $dat[$key]['avg'] = "-";
         $dat[$key]['mad'] = "-";
