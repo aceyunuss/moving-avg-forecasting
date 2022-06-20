@@ -26,6 +26,10 @@ class Peramalan extends Core_Controller
     $data['mth'] = $mth;
     $data['item'] = $this->Md_penjualan->item();
 
+    $this->db->select("year(date) as yr")->group_by("year(date)");
+    $yr = $this->Md_penjualan->get()->result_array();
+    $data['yr'] = array_column($yr, "yr");
+
     $this->vw("peramalan/vw_index", "Prediksi Penjualan", $data);
   }
 
@@ -35,6 +39,7 @@ class Peramalan extends Core_Controller
     $itm = $this->input->post('item');
     $siz = $this->input->post('size');
     $per = $this->input->post('period');
+    $yr = $this->input->post('yr');
 
 
     if ($siz != "all") {
@@ -42,7 +47,7 @@ class Peramalan extends Core_Controller
     }
     $dat = $this->db
       ->select("sum(total) as tot, month(date) as dt, monthname(date) as mo")
-      ->where(['i.name' => $itm])
+      ->where(['i.name' => $itm, 'year(date)' => $yr])
       ->join("sell s", "s.sell_id=i.sell_id", "left")
       ->group_by("month(date)")
       ->get('sell_item i')

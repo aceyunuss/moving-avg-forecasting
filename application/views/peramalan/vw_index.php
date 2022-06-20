@@ -23,13 +23,23 @@
             </select>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="form-group">
-            <label>Periode</label>
-            <input type="number" min="1" max="11" class="form-control " name="np" id="period">
+            <label>Tahun</label>
+            <select id="yr" class="form-control">
+              <?php foreach ((array)$yr as $y) { ?>
+                <option value="<?= $y ?>"><?= $y ?></option>
+              <?php } ?>
+            </select>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>Periode</label>
+            <input type="text" min="1" max="11" class="form-control " name="np" id="period">
+          </div>
+        </div>
+        <div class="col-md-2">
           <p></p>
 
           <div class="form-group">
@@ -73,6 +83,7 @@
       let item = $('#item').val();
       let size = $('#size').val();
       let period = $('#period').val();
+      let yr = $('#yr').val();
 
       if (period > 11) {
         alert("Maksimal periode 11")
@@ -85,13 +96,14 @@
             item: item,
             size: size,
             period: period,
+            yr: yr,
           },
           success: function(data, textStatus, jQxhr) {
             cale = JSON.parse(data)
             $('.item_table tbody').html('')
             let brg = $("#item option:selected").text();
             let ukr = $("#size option:selected").text();
-            $("#brg").text(brg + " " + ukr)
+            $("#brg").text(brg + " " + ukr + " " + yr)
             let tbody = "";
             let d = 1
             let tt = 0;
