@@ -13,6 +13,13 @@
           <option <?= $itm == "g" ? "selected" : "" ?> value="g">Pipa Baja Galvanis</option>
         </select>
       </div>
+      <div class="col-sm-3">
+        <select class="form-control yr">
+          <?php foreach ($yr as $y) { ?>
+            <option <?= $y == $wy ? "selected" : "" ?> value="<?= $y ?>"><?= $y ?></option>
+          <?php } ?>
+        </select>
+      </div>
     </div>
     <br>
     <br>
@@ -30,10 +37,10 @@
           <?php foreach ($sell as $key => $value) { ?>
             <tr>
               <td class="text-center"><?= ++$key ?></td>
-              <td class="text-center"><?= $value['mth'] ?></td>
+              <td class="text-center"><?= $value['mth'] . " " . $wy ?></td>
               <td class="text-center"><?= $value['total'] ?></td>
               <td class="text-center">
-                <a href="<?= site_url('datapenjualan/lihat_bulan/' . $value['m']) ?>" class="btn btn-sm
+                <a href="<?= site_url('datapenjualan/lihat_bulan/' . $value['m'] . '/' . $wy) ?>" class="btn btn-sm
                  btn-success">Detail</a>
               </td>
             </tr>
@@ -46,9 +53,11 @@
 
 <script>
   $(document).ready(function() {
-    $('.brg').change(function() {
+    $('.brg, .yr').change(function() {
       let itm = $('.brg').val()
-      location.href = '<?= site_url('datapenjualan/alias/') ?>' + itm
+      let yr = $('.yr').val()
+      console.log(yr)
+      location.href = '<?= site_url('datapenjualan/alias/') ?>' + itm + '/' + yr
     })
   })
 </script>

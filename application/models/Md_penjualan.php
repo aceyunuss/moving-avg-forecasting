@@ -76,7 +76,7 @@ class Md_penjualan extends CI_Model
   }
 
 
-  public function getMonth($itm)
+  public function getMonth($itm, $yr)
   {
     return $this->db->query("SELECT
                       monthname( date ) AS mth,
@@ -86,6 +86,7 @@ class Md_penjualan extends CI_Model
                       sell_item i
                       LEFT JOIN sell s ON i.sell_id = s.sell_id 
                       where name = '$itm'
+                      and year(date) = '$yr'
                     GROUP BY
                       MONTH (
                       date)");

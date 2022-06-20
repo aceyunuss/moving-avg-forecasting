@@ -18,18 +18,29 @@ class Datapenjualan extends Core_Controller
   public function index()
   {
     $data['itm'] = "h";
-    $data['sell'] = $this->Md_penjualan->getMonth("Pipa Baja Hitam")->result_array();
+    $data['sell'] = $this->Md_penjualan->getMonth("Pipa Baja Hitam", 2021)->result_array();
+
+    $this->db->select("year(date) as yr")->group_by("year(date)");
+    $yr = $this->Md_penjualan->get()->result_array();
+    $data['yr'] = array_column($yr, "yr");
+    $data['wy'] = 2021;
+
     $this->vw("datapenjualan/vw_daftar", "Data Penjualan", $data);
   }
 
-  public function alias($id)
+  public function alias($id, $y)
   {
     $itm = [
       'h' => "Pipa Baja Hitam",
       'g' => "Pipa Baja Galvanis",
     ];
-    $data['sell'] = $this->Md_penjualan->getMonth($itm[$id])->result_array();
+    $data['sell'] = $this->Md_penjualan->getMonth($itm[$id], $y)->result_array();
     $data['itm'] = $id;
+    $this->db->select("year(date) as yr")->group_by("year(date)");
+    $yr = $this->Md_penjualan->get()->result_array();
+    $data['yr'] = array_column($yr, "yr");
+    $data['wy'] = $y;
+
     $this->vw("datapenjualan/vw_daftar", "Data Penjualan", $data);
   }
 
@@ -56,9 +67,9 @@ class Datapenjualan extends Core_Controller
     echo "<script>alert('$msg'); location.href='" . site_url('datapenjualan') . "';</script>";
   }
 
-  public function lihat_bulan($id)
+  public function lihat_bulan($id, $yr)
   {
-    $this->db->where("month(date)", $id);
+    $this->db->where(["month(date)" => $id, "year(date)" => $yr]);
     $month = date('F', mktime(0, 0, 0, $id, 1, date('Y')));
     $data['sell'] = $this->Md_penjualan->get()->result_array();
 
