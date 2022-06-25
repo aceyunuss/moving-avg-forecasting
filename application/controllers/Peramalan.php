@@ -45,7 +45,17 @@ class Peramalan extends Core_Controller
     if ($siz != "all") {
       $this->db->where('size', $siz);
     }
-    $dat = $this->db
+    $pre = $this->db
+      ->select("sum(total) as tot, month(date) as dt, monthname(date) as mo")
+      ->where("date >= '$yr-01-01 00:00:00' - INTERVAL 3 MONTH ")
+      ->where(['i.name' => $itm, 'year(date)' => $yr - 1])
+      ->limit("3")
+      ->join("sell s", "s.sell_id=i.sell_id", "left")
+      ->group_by("month(date)")
+      ->get('sell_item i')
+      ->result_array();
+
+    $now = $this->db
       ->select("sum(total) as tot, month(date) as dt, monthname(date) as mo")
       ->where(['i.name' => $itm, 'year(date)' => $yr])
       ->join("sell s", "s.sell_id=i.sell_id", "left")
@@ -53,10 +63,17 @@ class Peramalan extends Core_Controller
       ->get('sell_item i')
       ->result_array();
 
+    $dat = array_merge($pre, $now);
+
     foreach ($dat as $key => $value) {
 
       $dat[$key]['act'] = (int)$value['tot'];
-      if ($key > ($per - 1)) {
+      if ($key < ($per) && $yr == 2021) {
+        $dat[$key]['avg'] = "-";
+        $dat[$key]['mad'] = "-";
+        $dat[$key]['mse'] = "-";
+        $dat[$key]['mape'] = "-";
+      } else {
         $dt = array_slice($dat, ($key - $per), $per, true);
 
         $avg = (array_sum(array_column($dt, "tot"))) / $per;
@@ -68,11 +85,6 @@ class Peramalan extends Core_Controller
         $dat[$key]['mad'] = round($mad, 2);
         $dat[$key]['mse'] = round($mse, 2);
         $dat[$key]['mape'] = round($mape, 2);
-      } else {
-        $dat[$key]['avg'] = "-";
-        $dat[$key]['mad'] = "-";
-        $dat[$key]['mse'] = "-";
-        $dat[$key]['mape'] = "-";
       }
     }
 

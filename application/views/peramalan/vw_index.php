@@ -113,7 +113,9 @@
 
             for (let x in cale) {
               itm = cale[x];
-              tbody += '<tr class="text-center">\
+              
+              if ((cale.length > 12 && parseInt(x) >= parseInt(period)) || cale.length <= 12) {
+                tbody += '<tr class="text-center">\
                         <td>' + itm.mo + '</td>\
                         <td>' + itm.tot + '</td>\
                         <td>' + itm.avg + '</td>\
@@ -122,11 +124,12 @@
                         <td>' + itm.mape + ' %</td>\
                       </tr>'
 
-              tt += itm.act;
-              madt += (itm.mad == "-") ? 0 : itm.mad;
-              mset += (itm.mse == "-") ? 0 : itm.mse;
-              mapet += (itm.mape == "-") ? 0 : itm.mape;
-              d = x;
+                tt += itm.act;
+                madt += (itm.mad == "-") ? 0 : itm.mad;
+                mset += (itm.mse == "-") ? 0 : itm.mse;
+                mapet += (itm.mape == "-") ? 0 : itm.mape;
+                d = x;
+              }
             }
             let co = parseInt(d) + 1 - parseInt(period)
 
