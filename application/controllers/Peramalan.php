@@ -55,6 +55,9 @@ class Peramalan extends Core_Controller
       ->get('sell_item i')
       ->result_array();
 
+    if ($siz != "all") {
+      $this->db->where('size', $siz);
+    }
     $now = $this->db
       ->select("sum(total) as tot, month(date) as dt, monthname(date) as mo")
       ->where(['i.name' => $itm, 'year(date)' => $yr])
