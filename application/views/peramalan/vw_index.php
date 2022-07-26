@@ -12,7 +12,7 @@
             </select>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="form-group">
             <label>Ukuran</label>
             <select id="size" class="form-control">
@@ -35,8 +35,13 @@
         </div>
         <div class="col-md-2">
           <div class="form-group">
-            <label>Periode</label>
-            <input type="text" min="1" max="11" class="form-control " name="np" id="period">
+            <label>Bulan</label>
+            <select id="mo" class="form-control">
+              <option value="all">Semua bulan</option>
+              <?php foreach ((array)$mth as $m) { ?>
+                <option value="<?= $m ?>"><?= $m ?></option>
+              <?php } ?>
+            </select>
           </div>
         </div>
         <div class="col-md-2">
@@ -52,21 +57,10 @@
       <br>
       <center>
         <h3></h3>
-        <div class="table-responsive col-sm-12 ">
-          <table class="table table-bordered item_table">
-            <thead>
-              <tr class="text-center">
-                <th>Bulan</th>
-                <th id="brg">Barang</th>
-                <th>Forecast MA</th>
-                <th>MAD</th>
-                <th>MSE</th>
-                <th>MAPE</th>
-              </tr>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-          </table>
+        <div class="table-responsive col-sm-12">
+          <div class="divtable">
+
+          </div>
         </div>
       </center>
       &nbsp;
@@ -82,7 +76,7 @@
 
       let item = $('#item').val();
       let size = $('#size').val();
-      let period = $('#period').val();
+      let period = 3; //$('#period').val();
       let yr = $('#yr').val();
 
       if (period > 11) {
@@ -100,33 +94,27 @@
           },
           success: function(data, textStatus, jQxhr) {
             cale = JSON.parse(data)
-            $('.item_table tbody').html('')
+            $('.divtable').html('')
             let brg = $("#item option:selected").text();
             let ukr = $("#size option:selected").text();
             $("#brg").text(brg + " " + ukr + " " + yr)
             let tbody = "";
             let d = 1
             let tt = 0;
-            let madt = 0;
-            let mset = 0;
             let mapet = 0;
 
             for (let x in cale) {
               itm = cale[x];
-              
+
               if ((cale.length > 12 && parseInt(x) >= parseInt(period)) || cale.length <= 12) {
                 tbody += '<tr class="text-center">\
                         <td>' + itm.mo + '</td>\
                         <td>' + itm.tot + '</td>\
                         <td>' + itm.avg + '</td>\
-                        <td>' + itm.mad + '</td>\
-                        <td>' + itm.mse + '</td>\
                         <td>' + itm.mape + ' %</td>\
                       </tr>'
 
                 tt += itm.act;
-                madt += (itm.mad == "-") ? 0 : itm.mad;
-                mset += (itm.mse == "-") ? 0 : itm.mse;
                 mapet += (itm.mape == "-") ? 0 : itm.mape;
                 d = x;
               }
@@ -135,27 +123,35 @@
 
 
             let tv = tt / (co);
-            let madv = madt / (co);
-            let msev = mset / (co);
+            console.log(co)
             let mapev = mapet / (co);
 
-            tbody += '<tr class="text-center">\
-                      <th> Total </th>\
-                      <th>' + tt + '</th>\
-                      <th> </th>\
-                      <th>' + madt.toFixed(2) + '</th>\
-                      <th>' + mset.toFixed(2) + '</th>\
-                      <th>' + mapet.toFixed(2) + ' %</th>\
-                    </tr>\
-                    <tr class="text-center">\
-                      <th> Average </th>\
-                      <th>' + tv.toFixed(2) + '</th>\
-                      <th></th>\
-                      <th>' + madv.toFixed(2) + '</th>\
-                      <th>' + msev.toFixed(2) + '</th>\
-                      <th>' + mapev.toFixed(2) + ' %</th>\
-                    </tr>'
-            $('.item_table tbody').append(tbody)
+            tbl = '<table class="table table-bordered item_table">\
+                        <thead>\
+                          <tr class="text-center">\
+                            <th>Bulan</th>\
+                            <th id="brg">Barang</th>\
+                            <th>Forecast MA</th>\
+                            <th>Rasio</th>\
+                          </tr>\
+                        </thead>\
+                        <tbody id="tbody">' + tbody + '\
+                          <tr class="text-center">\
+                            <th> Total </th>\
+                            <th>' + tt + '</th>\
+                            <th> </th>\
+                            <th>' + mapet.toFixed(2) + ' %</th>\
+                          </tr>\
+                          <tr class="text-center">\
+                            <th> Average </th>\
+                            <th>' + tv.toFixed(2) + '</th>\
+                            <th></th>\
+                            <th>' + mapev.toFixed(2) + ' %</th>\
+                          </tr>\
+                        </tbody>\
+                      </table>';
+
+            $('.divtable').html(tbl)
 
           },
         });
