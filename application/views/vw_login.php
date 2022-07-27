@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PT. Cahaya Laguna</title>
+  <title>PT. Cahaya Leguna</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="<?= base_url('/assets/vendors/mdi/css/materialdesignicons.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('/assets/vendors/css/vendor.bundle.base.css') ?>">
@@ -28,7 +28,7 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left p-5">
               <div class="brand-logo">
-                <h2>PT. Cahaya Laguna</h2>
+                <h2>PT. Cahaya Leguna</h2>
               </div>
               <h4>Hello let's get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
