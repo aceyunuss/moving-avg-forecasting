@@ -2,7 +2,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
     <!-- <a class="sidebar-brand brand-logo" href="<?= site_url() ?>"><img src="<?= base_url('assets/images/logo.svg') ?>" alt="logo" /></a> -->
-    <h3>&nbsp;&nbsp;PT. Cahaya Laguna</h3>
+    <h3>&nbsp;&nbsp;PT. Cahaya Leguna</h3>
     <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="<?= site_url() ?>"><img src="<?= base_url('assets/images/logo-mini.svg') ?>" alt="logo" /></a>
   </div>
   <ul class="nav">
@@ -45,6 +45,14 @@
         <span class="menu-title">Data Penjualan</span>
       </a>
     </li>
+    <?php if ($rl == "Direktur") { ?>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('peramalan/list') ?>">
+          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+          <span class="menu-title">Data Prediksi Penjualan</span>
+        </a>
+      </li>
+    <?php } ?>
     <?php if ($rl != "Admin Marketing") { ?>
       <li class="nav-item">
         <a class="nav-link" href="<?= site_url('peramalan') ?>">

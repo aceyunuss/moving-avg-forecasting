@@ -176,7 +176,7 @@
             $('#ifma').val(ifma);
             $('#irasio').val(irasio);
 
-            let co = parseInt(d) + 1 - parseInt(period)
+            let co = parseInt(d) + 1
 
 
             let tv = tt / (co);

@@ -178,4 +178,22 @@ class Peramalan extends Core_Controller
       echo "<script>alert('Gagal'); location.href='" . site_url('peramalan') . "';</script>";
     }
   }
+
+
+  public function list()
+  {
+
+    $data['list'] = $this->Md_peramalan->get()->result_array();
+    $this->vw("peramalan/vw_daftar", "Data Prediksi Penjualan", $data);
+  }
+
+
+  public function view($id)
+  {
+
+    $data['fo'] = $this->Md_peramalan->get($id)->row_array();
+    $data['fodet'] = $this->Md_peramalan->getDetail($id)->result_array();
+
+    $this->vw("peramalan/vw_det_all", "Data Prediksi Penjualan", $data);
+  }
 }
