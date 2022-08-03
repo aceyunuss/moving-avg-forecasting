@@ -66,6 +66,9 @@
 
   <script>
     Highcharts.chart('container', {
+      chart: {
+        height: 330,
+      },
       title: {
         text: 'Penjualan Pipa Baja'
       },

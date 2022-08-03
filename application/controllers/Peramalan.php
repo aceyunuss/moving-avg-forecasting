@@ -120,7 +120,7 @@ class Peramalan extends Core_Controller
         // $mad = abs($avg - $value['tot']);
         // $mse = ($mad * $mad);
         // $mape = ($mad / $value['tot'] * 100);
-        $rasio = $avg == 0 ? 0 : (($avg - $value['tot']) / $avg * 100);
+        $rasio = $avg == 0 ? 0 : (($avg - $value['tot']) / $value['tot'] * 100);
 
         $dat[$key]['avg'] = round($avg, 2);
         // $dat[$key]['mad'] = round($mad, 2);
